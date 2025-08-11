@@ -38,6 +38,18 @@ export class InputSensorComponent {
     this.sensorDataService.setWind(this.viento);
   }
 
+  tempCounter(event:Event){
+     this.temperatura = +(event.target as HTMLInputElement).value;
+  }
+
+  humCounter(event:Event){
+  this.humedad = +(event.target as HTMLInputElement).value;
+  }
+
+  windCounter(event:Event){
+  this.viento = +(event.target as HTMLInputElement).value;
+  }
+
 
 
 

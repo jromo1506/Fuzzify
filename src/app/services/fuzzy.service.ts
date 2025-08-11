@@ -22,7 +22,7 @@ export class FuzzyService {
 
 
 
-    getFuzzyLabel(value: number,scale: 'temp' | 'hum' | 'wind', lang: 'es' | 'en', min: number,max: number): string {
+  getFuzzyLabel(value: number,scale: 'temp' | 'hum' | 'wind', lang: 'es' | 'en', min: number,max: number): any{
 
     const level = this.mapToThreeLevels(value, min, max);
     return this.getLabel(level, scale, lang);
@@ -38,11 +38,13 @@ export class FuzzyService {
 
 
   //Regresa la palabra dependiendo del tercio, de la medida  y el lenguaje
-  getLabel(num: 1 | 2 | 3, scale: 'temp' | 'hum' | 'wind', lang: 'es' | 'en'): string {
-    const scaleIndex = { temp: 0, hum: 1, wind: 2 }[scale];
-    return this.labels[lang][num][scaleIndex];
-  }
-
+  getLabel(num: 1 | 2 | 3, scale: 'temp' | 'hum' | 'wind', lang: 'es' | 'en'): { level: number, label: string } {
+  const scaleIndex = { temp: 0, hum: 1, wind: 2 }[scale];
+  return {
+    level: num,
+    label: this.labels[lang][num][scaleIndex]
+  };
+}
     
 
 

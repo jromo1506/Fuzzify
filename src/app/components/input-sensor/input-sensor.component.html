@@ -22,7 +22,8 @@
                     max="50"
                     step="1"
                     [value]="temperatura"
-                    (input)="onTemperaturaChange($event)"
+                    (change)="onTemperaturaChange($event)"
+                    (input)="tempCounter($event)"
                     />
         <span class="material-icons">sunny</span>
         </div>
@@ -50,7 +51,8 @@
                 max="100"
                 step="1"
                 [value]="humedad"
-                (input)="onHumedadChange($event)"
+                (change)="onHumedadChange($event)"
+                (input)="humCounter($event)"
                 />
         <span class="material-icons">cloud</span>
         
@@ -68,16 +70,17 @@
 
         <div  class="flex items-center space-x-2">
             <span class="material-icons">mode_fan_off</span>
-<input
-  id="wind"
-  class="wind-slider slider w-[30rem]"
-  type="range"
-  min="0"
-  max="100"
-  step="1"
-  [value]="viento"
-  (input)="onVientoChange($event)"
-/>
+                <input
+                id="wind"
+                class="wind-slider slider w-[30rem]"
+                type="range"
+                min="0"
+                max="100"
+                step="1"
+                [value]="viento"
+                (change)="onVientoChange($event)"
+                (input)="windCounter($event)"
+                />
         <span class="material-icons">wind_power</span>
     
         </div>
