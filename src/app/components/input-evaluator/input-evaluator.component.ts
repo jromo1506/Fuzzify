@@ -38,7 +38,7 @@ export class InputEvaluatorComponent {
 
   
     ngOnInit() {
-      this.animateAppearance();
+      
       this.sensorDataService.temp$.subscribe((t:any) => {
         this.temp = t;
         this.evaluateComfort();
@@ -59,7 +59,7 @@ export class InputEvaluatorComponent {
       this.tempLevel = this.fuzzService.getFuzzyLabel(this.temp,"temp","es",-20,50)  // 1=frío, 2=templado, 3=caliente
       this.humLevel = this.fuzzService.getFuzzyLabel(this.humidity,"hum","es", 0, 100);        // 1=baja, 2=media, 3=alta
       this.windLevel = this.fuzzService.getFuzzyLabel(this.wind,"wind","es", 0, 100); 
-
+      this.animateAppearance();
       if (this.temp == null || this.humidity == null || this.wind == null) return;
       // lógica difusa con this.temp, this.humidity, this.wind
     }
