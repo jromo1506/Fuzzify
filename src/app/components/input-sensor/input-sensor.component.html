@@ -1,1 +1,88 @@
-<p>input-sensor works!</p>
+<div class="text-stone-700 text-xl">
+    <div class="py-3">
+        <h2 class="text-2xl">Weather conditions</h2>
+    </div>
+
+    <!-- Input  de temperatura -->
+    <div >
+        <div class="slider-container ">
+            <!-- <span class="material-icons">device_thermostat</span> -->
+            <label for="temp">Temperature  <span>{{ temperatura }} °C</span></label> 
+        </div>
+
+
+        <div  class="flex items-center space-x-2">
+            <span class="material-icons">ac_unit</span>
+
+                    <input
+                    id="temp"
+                    class="temp-slider w-[30rem]"
+                    type="range"
+                    min="-20"
+                    max="50"
+                    step="1"
+                    [value]="temperatura"
+                    (input)="onTemperaturaChange($event)"
+                    />
+        <span class="material-icons">sunny</span>
+        </div>
+
+    </div>
+
+
+
+    <!--Input de humedad-->
+    <div class="mt-[2.5rem]">
+
+        <div class="slider-container text-stone-700 text-xl">
+            <!-- <span class="material-icons">foggy</span> -->
+        <label for="hum"> Humidity: <span>{{ humedad }} %</span></label>
+        </div>
+
+
+
+        <div  class="flex items-center space-x-2">
+                <input
+                id="hum"
+                class="hum-slider slider w-[30rem]"
+                type="range"
+                min="0"
+                max="100"
+                step="1"
+                [value]="humedad"
+                (input)="onHumedadChange($event)"
+                />
+        <span class="material-icons">cloud</span>
+        
+        </div>
+
+    </div>
+
+    <!--Input de viento-->
+    <div class="mt-[2.5rem]">
+        <div class="slider-container text-stone-700 text-xl ">
+            <!-- <span class="material-icons">air</span> -->
+        <label for="wind">Wind:</label>
+        <span>{{ viento }} km/h</span>
+        </div>
+
+        <div  class="flex items-center space-x-2">
+            <span class="material-icons">mode_fan_off</span>
+<input
+  id="wind"
+  class="wind-slider slider w-[30rem]"
+  type="range"
+  min="0"
+  max="100"
+  step="1"
+  [value]="viento"
+  (input)="onVientoChange($event)"
+/>
+        <span class="material-icons">wind_power</span>
+    
+        </div>
+    </div>
+
+
+</div>
+

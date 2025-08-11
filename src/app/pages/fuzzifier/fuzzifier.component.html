@@ -1,14 +1,29 @@
-<div class="w-full bg-blue-500 px-1 py-2 font-bold text-white inline-flex items-center shadow-bottom text-lg">
-  <i class="fa-solid fa-snowflake mr-1"></i> ThermoSense
+<div class="w-full bg-slate-800 px-1 py-2 font-bold text-white inline-flex items-center shadow-bottom text-lg flex-col">
+    <div>
+         <i class="fa-solid fa-snowflake mr-1"></i> ThermoSense
+    </div>
+    <div>
+        <input type="text">
+    </div>
+
 </div>
 
 
 
-<div class="flex flex-col md:mx-[20%] ">
+<div class="flex flex-col md:mx-[20%]  bg-white p-5 rounded-xl my-5" >
+
+    <div class="p-1 text-3xl text-slate-800 font-medium">
+        <h2>Wheather forecaster</h2>
+    </div>
     <!--Contenedor input y evaluador-->
     <div class="flex flex-col md:flex-row w-100 md:justify-between">
-        <app-input-sensor></app-input-sensor>
-        <app-input-evaluator></app-input-evaluator>
+        <div class="w-[50%]">
+            <app-input-sensor></app-input-sensor>
+
+        </div>
+        <div class="w-[50%]">
+            <app-input-evaluator></app-input-evaluator>
+        </div>
      
     </div>
 

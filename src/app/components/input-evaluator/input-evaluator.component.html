@@ -1,1 +1,50 @@
-<p>input-evaluator works!</p>
+<div>
+
+    <div class="p-3 text-center">
+        <h2 class="text-2xl">Comfort Scale</h2>
+    </div>
+    <div class="w-[100%] flex justify-center">
+        <ngx-gauge
+            [value]="comfortValue"
+            [min]="0"
+            [max]="100"
+            type="semi"
+            [thick]="15"
+            cap="round"
+            
+            append="%"
+            foregroundColor="#3f51b5"
+            backgroundColor="#ccc">
+        </ngx-gauge>
+    </div>
+    <div class="w-full flex justify-center ">
+        <div class="w-[85%] h-2 border-b-4 border-gray-300 rounded-full"></div>
+    </div>
+    <div class="flex justify-around  text-5xl">
+        <div class="flex flex-col items-center justify-center  ">
+            <i class="fa-solid fa-water"></i>
+            <i class="fa-solid fa-smog"></i>
+             <i class="fa-solid fa-wind"></i>
+            <div>{{temp}}</div>
+        </div>
+        <div class="flex flex-col items-center justify-center ">
+            <i class="fa-solid fa-snowflake"></i>
+            <i class="fa-solid fa-cloud-sun"></i>
+            <i class="fa-solid fa-sun"></i>
+            
+            <div>{{temp}}</div>
+        </div>
+        <div class="flex flex-col items-center justify-center">
+           <i class="fa-solid fa-sun-plant-wilt"></i>
+           <i class="fa-solid fa-cloud"></i>
+           <i class="fa-solid fa-cloud-rain"></i>
+            <div>{{temp}}</div>
+        </div>
+    </div>
+
+  
+
+      
+    <div>{{humidity}}</div>
+    <div>{{wind}}</div>
+</div>
