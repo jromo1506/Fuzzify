@@ -15,9 +15,9 @@ import { SensorDataService } from '../../services/sensor-data.service';
   styleUrl: './input-sensor.component.scss'
 })
 export class InputSensorComponent {
-  temperatura = 20;
-  humedad = 50;
-  viento = 5;
+  temperatura = 0;
+  humedad = 0;
+  viento = 0;
 
   constructor(private sensorDataService:SensorDataService){
 

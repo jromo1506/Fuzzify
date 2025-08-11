@@ -1,11 +1,13 @@
- <ngx-gauge
-      [value]="comfortValue"
-      [min]="0"
-      [max]="100"
-      type="semi"
-      [thick]="15"
-      cap="round"
-      append="%"
-      foregroundColor="#3f51b5"
-      backgroundColor="#ccc">
+<ngx-gauge  @fadeInOut
+  *ngIf="comfortValue !== null"
+  [value]="comfortValue"
+  [min]="0"
+  [max]="100"
+  type="semi"
+  [thick]="15"
+  cap="round"
+  append="%"
+  foregroundColor="#3f51b5"
+  backgroundColor="#ccc"
+  [attr.data-refresh]="comfortValue">
 </ngx-gauge>

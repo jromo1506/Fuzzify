@@ -8,7 +8,7 @@ export class FuzzyService {
   labels = {
     es: {
       1: ['Fría', 'Baja', 'Nulo'],
-      2: ['Templada', 'Media', 'Leve'],
+      2: ['Templada', 'Media', 'Moderado'],
       3: ['Caliente', 'Alta', 'Fuerte'],
     },
     en: {
@@ -49,28 +49,22 @@ export class FuzzyService {
 
 
   nivelComodidad(temp: number, hum: number, viento: number): number {
-  const tercio = (value: number, min: number, max: number) => {
-    const rango = max - min;
-    if (value <= min + rango / 3) return 1;
-    if (value <= min + 2 * rango / 3) return 2;
-    return 3;
-  };
+  const minTemp = -20, maxTemp = 50;
+  const minHum = 0, maxHum = 100;
+  const minViento = 0, maxViento = 30;
 
-  const tempNivel = tercio(temp, -20, 50);
-  const humNivel = tercio(hum, 0, 100);
-  const vientoNivel = tercio(viento, 0, 100);
+  const idealTemp = 22;
+  const idealHum = 50;
+  const idealViento = 10;
 
-  // Comodidad ideal:
-  // Temp templada (2), Hum media (2), viento leve (2)
-  // Devuelve cuánto se aleja del ideal (0 = perfecto)
+  const normTemp = Math.min(Math.abs(temp - idealTemp) / (maxTemp - minTemp), 1);
+  const normHum = Math.min(Math.abs(hum - idealHum) / (maxHum - minHum), 1);
+  const normViento = Math.min(Math.abs(viento - idealViento) / (maxViento - minViento), 1);
 
-  const distancia = Math.abs(tempNivel - 2) + Math.abs(humNivel - 2) + Math.abs(vientoNivel - 2);
+  const avgDiff = (normTemp + normHum + normViento) / 3;
+  const comodidad = (1 - avgDiff) * 100;
 
-  if (distancia === 0) return 5; // Muy cómodo
-  if (distancia === 1) return 4;
-  if (distancia === 2) return 3;
-  if (distancia === 3) return 2;
-  return 1; // Muy incómodo
+  return Math.round(comodidad * 10) / 10; // 1 decimal
 }
 
     

@@ -6,26 +6,23 @@
         </div>
 
         <div class="w-[100%] flex justify-center">
-                <app-comfort-display></app-comfort-display>
+                <app-comfort-display [comfortValue]="comfyLevel"></app-comfort-display>
         </div>
     </div>
         
-    <div *ngIf="!showComfy">
-        <div class="p-3 text-center">
-            <h2 class="text-2xl">Loading</h2>
-        </div>
-
-            <div class="w-[100%] flex justify-center">
-                    <img src="assets/loading.gif">
-            </div>
+    <div *ngIf="!showComfy" class="flex flex-col justify-center items-center h-[14rem]">
+        <h2 class="text-2xl mb-4">Loading</h2>
+        <img src="assets/loading.gif" class="w-8 h-8" />
     </div>
+
+
   
   <div class="w-full flex justify-center">
     <div class="w-[85%] h-2 border-b-4 border-gray-300 rounded-full"></div>
   </div>
 
   <!-- Aquí abre el div padre de los 3 bloques -->
-    <div class="flex justify-around items-center text-5xl h-[10rem] text-stone-600">
+    <div class="flex justify-around items-center text-3xl md:text-5xl h-[10rem] text-stone-600">
 
     <div *ngIf="showTemp" [@fadeIn] [style.opacity]="showTemp ? 1 : 0" [ngSwitch]="tempLevel.level" class="flex flex-col items-center w-1/3">
         <div class="text-sm mb-3">Temperatura</div>
@@ -33,17 +30,17 @@
         <i *ngSwitchCase="2" class="fa-solid fa-cloud-sun"></i>
         <i *ngSwitchCase="3" class="fa-solid fa-sun"></i>
         <div *ngSwitchDefault>---</div>
-        <div class="text-lg">{{ tempLevel.label }}</div>
+        <div class="text-sm md:text-lg">{{ tempLevel.label }}</div>
           <div class="text-base">{{temp}}°C</div>
     </div>
 
     <div *ngIf="showHum" [@fadeIn] [style.opacity]="showHum ? 1 : 0" [ngSwitch]="humLevel.level" class="flex flex-col items-center w-1/3">
         <div class="text-sm mb-3">Humedad</div>
-        <i *ngSwitchCase="1" class="fa-solid fa-water"></i>
+        <i *ngSwitchCase="1" class="fa-solid fa-sun-plant-wilt"></i>
         <i *ngSwitchCase="2" class="fa-solid fa-smog"></i>
         <i *ngSwitchCase="3" class="fa-solid fa-cloud-rain"></i>
         <div *ngSwitchDefault>---</div>
-        <div class="text-lg">{{ humLevel.label }}</div>
+        <div class="text-sm md:text-lg">{{ humLevel.label }}</div>
          <div class="text-base">{{humidity}}%</div>
     </div>
 
@@ -51,9 +48,9 @@
         <div class="text-sm mb-3">Viento</div>
         <i *ngSwitchCase="3" class="fa-solid fa-wind"></i>
         <i *ngSwitchCase="2" class="fa-solid fa-cloud"></i>
-        <i *ngSwitchCase="1" class="fa-solid fa-sun-plant-wilt"></i>
+        <i *ngSwitchCase="1"  class="fa-solid fa-water" ></i>
         <div *ngSwitchDefault>---</div>
-        <div class="text-lg">{{ windLevel.label }}</div>
+        <div class="text-sm md:text-lg">{{ windLevel.label }}</div>
           <div class="text-base">{{wind}}km/h</div>
     </div>
 

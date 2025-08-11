@@ -61,27 +61,41 @@ export class InputEvaluatorComponent {
     }
 
     evaluateComfort() {
-      this.tempLevel = this.fuzzService.getFuzzyLabel(this.temp,"temp","es",-20,50)  // 1=frío, 2=templado, 3=caliente
-      this.humLevel = this.fuzzService.getFuzzyLabel(this.humidity,"hum","es", 0, 100);        // 1=baja, 2=media, 3=alta
-      this.windLevel = this.fuzzService.getFuzzyLabel(this.wind,"wind","es", 0, 100); 
-      this.animateAppearance();
-      this.showComfy=true;
-      this.comfyLevel = this.fuzzService.nivelComodidad(this.temp,this.humidity,this.wind);
-      console.log(this.comfyLevel,"e");
+      this.showComfy=false;
       if (this.temp == null || this.humidity == null || this.wind == null) return;
-      // lógica difusa con this.temp, this.humidity, this.wind
-    }
 
+      this.showComfy = false;
+      this.tempLevel = this.fuzzService.getFuzzyLabel(this.temp, "temp", "es", -20, 50);
+      this.humLevel = this.fuzzService.getFuzzyLabel(this.humidity, "hum", "es", 0, 100);
+      this.windLevel = this.fuzzService.getFuzzyLabel(this.wind, "wind", "es", 0, 30);
 
-    animateAppearance() {
-      this.showTemp = false;
-      this.showHum = false;
-      this.showWind = false;
-      
+      this.animateAppearance().then(() => {
+      setTimeout(() => {
+          this.comfyLevel = this.fuzzService.nivelComodidad(this.temp, this.humidity, this.wind);
+          this.showComfy = true;
+          console.log(this.comfyLevel, "e");
+        }, 100);
+      });
+}
 
-      setTimeout(() => this.showTemp = true, 0);
-      setTimeout(() => this.showHum = true, 500);
-      setTimeout(() => this.showWind = true, 1000);
-      
-    }
+animateAppearance(): Promise<void> {
+  this.showTemp = false;
+  this.showHum = false;
+  this.showWind = false;
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      this.showTemp = true;
+    }, 0);
+
+    setTimeout(() => {
+      this.showHum = true;
+    }, 500);
+
+    setTimeout(() => {
+      this.showWind = true;
+      resolve();
+    }, 1000);
+  });
+}
 }

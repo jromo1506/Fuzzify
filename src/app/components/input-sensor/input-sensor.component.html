@@ -43,6 +43,7 @@
 
 
         <div  class="flex items-center space-x-2">
+            <span class="material-icons">cloud_off</span>
                 <input
                 id="hum"
                 class="hum-slider slider w-[30rem]"
@@ -75,7 +76,7 @@
                 class="wind-slider slider w-[30rem]"
                 type="range"
                 min="0"
-                max="100"
+                max="30"
                 step="1"
                 [value]="viento"
                 (change)="onVientoChange($event)"
