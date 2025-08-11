@@ -1,23 +1,25 @@
 <div>
+    
+    <div *ngIf="showComfy">
+        <div class="p-3 text-center">
+            <h2 class="text-2xl">Comfort Scale</h2>
+        </div>
 
-  <div class="p-3 text-center">
-    <h2 class="text-2xl">Comfort Scale</h2>
-  </div>
+        <div class="w-[100%] flex justify-center">
+                <app-comfort-display></app-comfort-display>
+        </div>
+    </div>
+        
+    <div *ngIf="!showComfy">
+        <div class="p-3 text-center">
+            <h2 class="text-2xl">Loading</h2>
+        </div>
 
-  <div class="w-[100%] flex justify-center">
-    <ngx-gauge
-      [value]="comfortValue"
-      [min]="0"
-      [max]="100"
-      type="semi"
-      [thick]="15"
-      cap="round"
-      append="%"
-      foregroundColor="#3f51b5"
-      backgroundColor="#ccc">
-    </ngx-gauge>
-  </div>
-
+            <div class="w-[100%] flex justify-center">
+                    <img src="assets/loading.gif">
+            </div>
+    </div>
+  
   <div class="w-full flex justify-center">
     <div class="w-[85%] h-2 border-b-4 border-gray-300 rounded-full"></div>
   </div>

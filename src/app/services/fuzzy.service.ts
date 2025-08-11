@@ -39,12 +39,40 @@ export class FuzzyService {
 
   //Regresa la palabra dependiendo del tercio, de la medida  y el lenguaje
   getLabel(num: 1 | 2 | 3, scale: 'temp' | 'hum' | 'wind', lang: 'es' | 'en'): { level: number, label: string } {
-  const scaleIndex = { temp: 0, hum: 1, wind: 2 }[scale];
-  return {
-    level: num,
-    label: this.labels[lang][num][scaleIndex]
+    const scaleIndex = { temp: 0, hum: 1, wind: 2 }[scale];
+    return {
+      level: num,
+      label: this.labels[lang][num][scaleIndex]
+    };
+
+  }
+
+
+  nivelComodidad(temp: number, hum: number, viento: number): number {
+  const tercio = (value: number, min: number, max: number) => {
+    const rango = max - min;
+    if (value <= min + rango / 3) return 1;
+    if (value <= min + 2 * rango / 3) return 2;
+    return 3;
   };
+
+  const tempNivel = tercio(temp, -20, 50);
+  const humNivel = tercio(hum, 0, 100);
+  const vientoNivel = tercio(viento, 0, 100);
+
+  // Comodidad ideal:
+  // Temp templada (2), Hum media (2), viento leve (2)
+  // Devuelve cuánto se aleja del ideal (0 = perfecto)
+
+  const distancia = Math.abs(tempNivel - 2) + Math.abs(humNivel - 2) + Math.abs(vientoNivel - 2);
+
+  if (distancia === 0) return 5; // Muy cómodo
+  if (distancia === 1) return 4;
+  if (distancia === 2) return 3;
+  if (distancia === 3) return 2;
+  return 1; // Muy incómodo
 }
+
     
 
 

@@ -4,9 +4,10 @@ import { CommonModule } from '@angular/common';
 import { NgxGaugeModule } from 'ngx-gauge';
 import { FuzzyService } from '../../services/fuzzy.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { ComfortDisplayComponent } from '../comfort-display/comfort-display.component';
 @Component({
   selector: 'app-input-evaluator',
-  imports: [CommonModule,NgxGaugeModule],
+  imports: [CommonModule,NgxGaugeModule,ComfortDisplayComponent],
   templateUrl: './input-evaluator.component.html',
   styleUrl: './input-evaluator.component.scss',
   animations: [
@@ -32,6 +33,10 @@ export class InputEvaluatorComponent {
   showTemp = false;
   showHum = false;
   showWind = false;
+
+
+  comfyLevel = 0;
+  showComfy= false;
 
 
   constructor(private sensorDataService:SensorDataService,private fuzzService:FuzzyService){}
@@ -60,6 +65,9 @@ export class InputEvaluatorComponent {
       this.humLevel = this.fuzzService.getFuzzyLabel(this.humidity,"hum","es", 0, 100);        // 1=baja, 2=media, 3=alta
       this.windLevel = this.fuzzService.getFuzzyLabel(this.wind,"wind","es", 0, 100); 
       this.animateAppearance();
+      this.showComfy=true;
+      this.comfyLevel = this.fuzzService.nivelComodidad(this.temp,this.humidity,this.wind);
+      console.log(this.comfyLevel,"e");
       if (this.temp == null || this.humidity == null || this.wind == null) return;
       // lógica difusa con this.temp, this.humidity, this.wind
     }
@@ -69,9 +77,11 @@ export class InputEvaluatorComponent {
       this.showTemp = false;
       this.showHum = false;
       this.showWind = false;
+      
 
       setTimeout(() => this.showTemp = true, 0);
       setTimeout(() => this.showHum = true, 500);
       setTimeout(() => this.showWind = true, 1000);
+      
     }
 }
