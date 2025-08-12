@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { CustomMatPaginatorIntl, ForecastTableComponent } from './forecast-table.component';
 import { MatTableModule } from '@angular/material/table';
@@ -7,6 +7,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
+
 
 describe('ForecastTableComponent', () => {
   let component: ForecastTableComponent;
@@ -17,8 +18,7 @@ describe('ForecastTableComponent', () => {
     const spy = jasmine.createSpyObj('LocalStorageService', ['data$'], { data$: of([]) });
 
     await TestBed.configureTestingModule({
-      imports: [MatTableModule, MatPaginatorModule, MatSortModule],
-      declarations: [ForecastTableComponent],
+      imports: [ForecastTableComponent,MatTableModule, MatPaginatorModule, MatSortModule],
       providers: [
         { provide: LocalStorageService, useValue: spy },
         { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
