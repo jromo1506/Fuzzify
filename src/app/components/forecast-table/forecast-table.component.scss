@@ -1,0 +1,30 @@
+.mat-header-cell, .mat-cell {
+
+  padding: 12px 24px;
+}
+
+table thead{
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  text-align: center;
+}
+
+table th {
+    
+  background-color: #2f4050; /* azul Material */
+  color: white;
+  font-weight: 600;
+
+}
+
+.mat-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+
+table.mat-table th.mat-header-cell,
+table.mat-table td.mat-cell {
+  text-align: center !important;
+  vertical-align: middle !important;
+  padding: 8px 16px !important;
+}

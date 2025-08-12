@@ -4,65 +4,76 @@ import { take } from 'rxjs/operators';
 import { SensorDataService } from './sensor-data.service';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { ComfortDisplayComponent } from '../components/comfort-display/comfort-display.component';
+import { LocalStorageService } from './local-storage.service';
 
 describe('SensorDataService', () => {
-   let service: SensorDataService;
+   let service: LocalStorageService;
+  const storageKey = 'weatherData';
 
   beforeEach(() => {
-     TestBed.configureTestingModule({
-     
-      imports: [ComfortDisplayComponent],
-      providers: [provideAnimations()],
-    }).compileComponents();
-    service = TestBed.inject(SensorDataService);
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(LocalStorageService);
+    localStorage.clear();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should emit new temperature values', (done) => {
-    service.temp$.pipe(take(1)).subscribe((value) => {
-      expect(value).toBe(0);
+  it('should start with empty data if localStorage is empty', (done) => {
+    service.data$.pipe(take(1)).subscribe((data:any) => {
+      expect(data).toEqual([]);
       done();
     });
-    service.setTemperature(0);
   });
 
-  it('should emit new humidity values', (done) => {
-    service.humidity$.pipe(take(1)).subscribe((value) => {
-      expect(value).toBe(0);
+  it('getData() should return empty array if no data in localStorage', () => {
+    expect(service.getData()).toEqual([]);
+  });
+
+  it('saveData() should save data to localStorage and emit new data', (done) => {
+    const sample = { temp: 25, humidity: 50 };
+    service.saveData(sample);
+
+    const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    expect(stored.length).toBe(1);
+    expect(stored[0]).toEqual(sample);
+
+    service.data$.pipe(take(1)).subscribe((data:any) => {
+      expect(data.length).toBe(1);
+      expect(data[0]).toEqual(sample);
       done();
     });
-    service.setHumidity(0);
   });
 
-  it('should emit new wind values', (done) => {
-    service.wind$.pipe(take(1)).subscribe((value) => {
-      expect(value).toBe(0);
+  it('saveData() should append new data without removing existing data', (done) => {
+    const first = { temp: 20 };
+    const second = { temp: 30 };
+    service.saveData(first);
+    service.saveData(second);
+
+    const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    expect(stored.length).toBe(2);
+    expect(stored).toContain(first);
+    expect(stored).toContain(second);
+
+    service.data$.pipe(take(1)).subscribe((data:any) => {
+      expect(data.length).toBe(2);
+      expect(data).toContain(first);
+      expect(data).toContain(second);
       done();
     });
-    service.setWind(0);
   });
 
-  it('should have initial default values as 0', (done) => {
-    let tempVal: number;
-    let humVal: number;
-    let windVal: number;
+  it('clearData() should remove data from localStorage and emit empty array', (done) => {
+    service.saveData({ temp: 10 });
+    service.clearData();
 
-    service.temp$.pipe(take(1)).subscribe((v) => {
-      tempVal = v;
-      service.humidity$.pipe(take(1)).subscribe((h) => {
-        humVal = h;
-        service.wind$.pipe(take(1)).subscribe((w) => {
-          windVal = w;
+    expect(localStorage.getItem(storageKey)).toBeNull();
 
-          expect(tempVal).toBe(0);
-          expect(humVal).toBe(0);
-          expect(windVal).toBe(0);
-          done();
-        });
-      });
+    service.data$.pipe(take(1)).subscribe((data:any) => {
+      expect(data).toEqual([]);
+      done();
     });
   });
 });
