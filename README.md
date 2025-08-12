@@ -1,60 +1,63 @@
-# Actividad
+# Angular Fuzzy Comfort App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.8.
+## Descripción
+Aplicación Angular para evaluar el nivel de confort térmico de una habitación usando lógica difusa basada en tres parámetros: temperatura, humedad y velocidad del viento.
 
-## Development server
+---
 
-To start a local development server, run:
+## Requisitos Previos
+- Node.js v16+ instalado
+- Angular CLI instalado globalmente (`npm install -g @angular/cli`)
+- Docker instalado
+- Git (opcional)
 
-```bash
+---
+
+## Instalación
+
+1. Clona el repositorio:
+git clone https://github.com/jromo1506/Fuzzify.git
+cd angular-fuzzy-comfort
+
+2. Instala dependencias:
+npm install
+
+3. Levanta la aplicación:
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Abre en el navegador: http://localhost:4200
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Uso
 
-```bash
-ng generate component component-name
-```
+- Ajusta los sliders de Temperatura, Humedad y Viento.
+- El nivel de confort se calcula automáticamente.
+- Resultados se muestran en el componente de visualización.
+- Puedes guardar resultados en la tabla.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## Testing
 
-## Building
+Ejecuta pruebas unitarias con cobertura:
+ng test --code-coverage
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## Docker
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+1. Construye la imagen:
+docker build -t angular-fuzzy .
 
-## Running unit tests
+2. Ejecuta el contenedor:
+docker run -d -p 8080:80 angular-fuzzy
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+## Estructura del proyecto
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-# Fuzzify
+- src/app/input-sensor/ - Entrada de datos
+- src/app/fuzzy-evaluator/ - Lógica difusa
+- src/app/comfort-display/ - Visualización resultados
+- Servicios para comunicación
